@@ -19,3 +19,20 @@ const markupGallery = galleryItems.map(({preview, original, description}) =>
 
 gallery.insertAdjacentHTML('beforeend', markupGallery);
 
+// Додавання функціоналу
+
+gallery.addEventListener('click', handlerModal);
+
+function handlerModal(evt) {
+    evt.preventDefault();
+
+    if (!evt.target.classList.contains('gallery__image')) {
+        return;
+    }
+
+    const modal = basicLightbox.create(`
+    <img src="${evt.target.dataset.source}">
+    `);
+
+    modal.show();
+}
