@@ -39,6 +39,15 @@ function handlerModal(evt) {
                     elem.close()
                 }
             });
+
+            if (!basicLightbox.visible()) {
+                document.removeEventListener('keydown', evt => {
+                    if (evt.code === 'Escape') {
+                        elem.close()
+                    }
+                }); 
+            }
+            console.log(elem);
         }
     }).show();
 }
