@@ -32,7 +32,17 @@ function handlerModal(evt) {
 
     const modal = basicLightbox.create(`
     <img src="${evt.target.dataset.source}">
-    `);
+    `, {
+        onShow: elem => {
+            document.addEventListener('keydown', evt => {
+                if (evt.code === 'Escape') {
+                    elem.close()
+                }
+            });
+        }
+    }).show();
 
-    modal.show();
+    // Додатково
+
+    
 }
