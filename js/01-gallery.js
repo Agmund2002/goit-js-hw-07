@@ -33,21 +33,19 @@ function handlerModal(evt) {
     const modal = basicLightbox.create(`
     <img src="${evt.target.dataset.source}">
     `, {
-        onShow: elem => {
-            document.addEventListener('keydown', evt => {
-                if (evt.code === 'Escape') {
-                    elem.close()
-                }
-            });
+        handler: null,
+        onShow: (elem) => {
+            this.handler = handlerClose.bind(elem);
+            document.addEventListener('keydown', this.handler);
+        },
+        onclose: () => document.removeEventListener('keydown', this.handler)
+    });
 
-            if (!basicLightbox.visible()) {
-                document.removeEventListener('keydown', evt => {
-                    if (evt.code === 'Escape') {
-                        elem.close()
-                    }
-                }); 
-            }
-            console.log(elem);
-        }
-    }).show();
+    modal.show();
 }
+
+function handlerClose(evt) {
+    if (evt.code === 'Escape'){
+        this.close();
+    }
+};
